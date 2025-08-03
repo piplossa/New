@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demo API</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 2rem auto; text-align: center; }
+    input { width: 100%; padding: 0.5rem; margin-bottom: 1rem; }
+    button { padding: 0.5rem 1rem; margin: 0.5rem; }
+    pre { text-align: left; background: #f4f4f4; padding: 1rem; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <h1>Demo de Endpoints</h1>
+  <input id="key" placeholder="API Key" />
+  <div>
+    <button onclick="callEndpoint('endpoint1')">Endpoint 1</button>
+    <button onclick="callEndpoint('endpoint2')">Endpoint 2</button>
+  </div>
+  <pre id="output"></pre>
+  <script>
+    async function callEndpoint(ep) {
+      const key = document.getElementById('key').value.trim();
+      const res = await fetch(`/api/${ep}`, { headers: { 'x-api-key': key } });
+      const data = await res.json();
+      document.getElementById('output').textContent = JSON.stringify(data, null, 2);
+    }
+  </script>
+</body>
+</html>
