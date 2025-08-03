@@ -1,4 +1,6 @@
 import express from 'express'
+import path from 'path'
+import { fileURLToPath } from 'url'
 import register from './api/auth/register.js'
 import login from './api/auth/login.js'
 import endpoint1 from './api/endpoint1.js'
@@ -7,6 +9,11 @@ import dashboard from './api/dashboard.js'
 
 const app = express()
 app.use(express.json())
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+app.get('/dashboard', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'dashboard.html'))
+})
 
 app.post('/api/auth/register', register)
 app.post('/api/auth/login', login)
