@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>Dashboard</title>
+</head>
+<body>
+<h1>Dashboard</h1>
+<section>
+<h2>Registrarse</h2>
+<input id="reg-username" placeholder="Usuario" />
+<input id="reg-password" type="password" placeholder="Contraseña" />
+<button onclick="register()">Enviar</button>
+<pre id="reg-result"></pre>
+</section>
+<section>
+<h2>Iniciar sesión</h2>
+<input id="log-username" placeholder="Usuario" />
+<input id="log-password" type="password" placeholder="Contraseña" />
+<button onclick="login()">Enviar</button>
+<pre id="log-result"></pre>
+</section>
+<section>
+<h2>Endpoint 1</h2>
+<input id="ep1-key" placeholder="API Key" />
+<button onclick="ep1()">Probar</button>
+<pre id="ep1-result"></pre>
+</section>
+<section>
+<h2>Endpoint 2</h2>
+<input id="ep2-key" placeholder="API Key" />
+<button onclick="ep2()">Probar</button>
+<pre id="ep2-result"></pre>
+</section>
+<section>
+<h2>Dashboard API</h2>
+<input id="dash-key" placeholder="API Key" />
+<button onclick="dash()">Ver</button>
+<pre id="dash-result"></pre>
+</section>
+<script>
+async function register(){
+ const res=await fetch('/api/auth/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:document.getElementById('reg-username').value,password:document.getElementById('reg-password').value})});
+ document.getElementById('reg-result').textContent=JSON.stringify(await res.json(),null,2);
+}
+async function login(){
+ const res=await fetch('/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:document.getElementById('log-username').value,password:document.getElementById('log-password').value})});
+ document.getElementById('log-result').textContent=JSON.stringify(await res.json(),null,2);
+}
+async function ep1(){
+ const res=await fetch('/api/endpoint1',{headers:{'x-api-key':document.getElementById('ep1-key').value}});
+ document.getElementById('ep1-result').textContent=JSON.stringify(await res.json(),null,2);
+}
+async function ep2(){
+ const res=await fetch('/api/endpoint2',{headers:{'x-api-key':document.getElementById('ep2-key').value}});
+ document.getElementById('ep2-result').textContent=JSON.stringify(await res.json(),null,2);
+}
+async function dash(){
+ const res=await fetch('/api/dashboard',{headers:{'x-api-key':document.getElementById('dash-key').value}});
+ document.getElementById('dash-result').textContent=JSON.stringify(await res.json(),null,2);
+}
+</script>
+</body>
+</html>

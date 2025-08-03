@@ -12,7 +12,7 @@ export default function verifyKey(req, res, next) {
   db.usage[today] = db.usage[today] || {}
   db.usage[today][user.id] = (db.usage[today][user.id] || 0) + 1
 
-  if (db.usage[today][user.id] > 100) return res.status(429).json({ error: 'Límite diario alcanzado' })
+  if (db.usage[today][user.id] > 2000) return res.status(429).json({ error: 'Límite diario alcanzado' })
 
   writeDB(db)
   req.user = user
